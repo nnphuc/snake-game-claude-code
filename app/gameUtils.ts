@@ -453,7 +453,7 @@ export const moveSnake = (gameState: GameState): GameState => {
     snake, food, bonusFood, direction, nextDirection, 
     gridSize, score, speed, map, ghosts, ghostsActive,
     powerMode, powerModeTimeLeft, bonusFoodTimeLeft,
-    bonusFoodCounter
+    bonusFoodCounter, stats
   } = gameState;
   
   // If game is over, don't do anything
@@ -574,6 +574,13 @@ export const moveSnake = (gameState: GameState): GameState => {
   // Create new snake array
   const newSnake = [nextHead, ...snake];
   
+  // Update statistics
+  const newStats = {
+    ...stats,
+    movesMade: stats.movesMade + 1,
+    maxLength: Math.max(stats.maxLength, newSnake.length)
+  };
+  
   // Check if snake ate regular food
   let newFood = food;
   let newScore = score + ghostBonus; // Add any ghost bonus points
@@ -589,6 +596,8 @@ export const moveSnake = (gameState: GameState): GameState => {
     newScore += 10; // Regular food is 10 points
     // Increase speed slightly with each food eaten
     newSpeed = Math.max(50, speed - 5);
+    // Update apples eaten stat
+    newStats.applesEaten = stats.applesEaten + 1;
   } 
   // Check if snake ate bonus food
   else if (newBonusFood && arePointsEqual(nextHead, newBonusFood)) {
@@ -625,6 +634,7 @@ export const moveSnake = (gameState: GameState): GameState => {
     powerModeTimeLeft: newPowerModeTimeLeft,
     bonusFoodTimeLeft: newBonusFoodTimeLeft,
     bonusFoodCounter: newBonusFoodCounter,
+    stats: newStats,
   };
 };
 
@@ -660,6 +670,11 @@ export const initGameState = (mapType: MapType, gridSize: number): GameState => 
     powerModeTimeLeft: 0, 
     bonusFoodTimeLeft: 0,
     bonusFoodCounter: 20, // Start counting from 20 to get bonus food quicker
+    stats: {
+      movesMade: 0,
+      applesEaten: 0,
+      maxLength: initialSnake.length
+    }
   };
   
   // Generate initial food position

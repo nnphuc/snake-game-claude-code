@@ -34,6 +34,12 @@ export type Ghost = {
   state: GhostState; // Current state of the ghost
 };
 
+export type GameStats = {
+  movesMade: number;
+  applesEaten: number;
+  maxLength: number;
+};
+
 export type GameState = {
   snake: Point[];
   food: Point;
@@ -51,4 +57,5 @@ export type GameState = {
   powerModeTimeLeft: number; // Countdown for power mode duration
   bonusFoodTimeLeft: number; // Countdown until bonus food disappears
   bonusFoodCounter: number; // Counter to track when to spawn bonus food
+  stats: GameStats; // Game statistics tracking
 };

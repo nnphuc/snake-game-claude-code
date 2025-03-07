@@ -125,7 +125,16 @@ const Game: React.FC = () => {
       <div className="game-content">
         <h1>Snake Game</h1>
         
-        {gameStarted && <div className="score">Score: {gameState.score}</div>}
+        {gameStarted && (
+  <>
+    <div className="score">Score: {gameState.score}</div>
+    <div className="stats">
+      <div>Moves: {gameState.stats.movesMade}</div>
+      <div>Apples: {gameState.stats.applesEaten}</div>
+      <div>Max Length: {gameState.stats.maxLength}</div>
+    </div>
+  </>
+)}
         
         {gameStarted ? (
           <GameBoard 
@@ -186,6 +195,11 @@ const Game: React.FC = () => {
           <div className="game-over">
             <h2>Game Over!</h2>
             <p>Your score: {gameState.score}</p>
+            <div className="game-stats">
+              <p>Moves made: {gameState.stats.movesMade}</p>
+              <p>Apples eaten: {gameState.stats.applesEaten}</p>
+              <p>Max length: {gameState.stats.maxLength}</p>
+            </div>
             <button onClick={startNewGame}>Play Again</button>
             <button onClick={resetGame}>Change Map</button>
           </div>
