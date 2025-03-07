@@ -2,11 +2,15 @@
   "name": "snake-game",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://nnphuc.github.io/snake-game-claude-code",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "predeploy": "npm run build && touch out/.nojekyll",
+    "deploy": "gh-pages -d out",
+    "export": "next export"
   },
   "dependencies": {
     "next": "14.1.4",
@@ -17,8 +21,9 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "typescript": "^5",
     "eslint": "^8",
-    "eslint-config-next": "14.1.4"
+    "eslint-config-next": "14.1.4",
+    "gh-pages": "^6.3.0",
+    "typescript": "^5"
   }
 }
